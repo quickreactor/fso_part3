@@ -1,0 +1,23 @@
+GET http://localhost:3001/api/persons/
+
+###
+GET http://localhost:3001/api/info/
+###
+GET http://localhost:3001/api/persons/10
+###
+DELETE http://localhost:3001/api/persons/3
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{"name":"Fulp Gert","number":"09 854 6859"}
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{"name":"Pook Null","number":""}
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{"name":"Fulp Gert","number":"09 854 6859"}
