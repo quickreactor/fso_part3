@@ -21,3 +21,30 @@ POST http://localhost:3001/api/persons
 content-type: application/json
 
 {"name":"Fulp Gert","number":"09 854 6859"}
+
+
+// RENDER
+###
+GET https://fso-part3-phonebook-backend-9sef.onrender.com/api/persons/
+
+###
+GET https://fso-part3-phonebook-backend-9sef.onrender.com/api/info/
+###
+GET https://fso-part3-phonebook-backend-9sef.onrender.com/api/persons/10
+###
+DELETE https://fso-part3-phonebook-backend-9sef.onrender.com/api/persons/4
+###
+POST https://fso-part3-phonebook-backend-9sef.onrender.com/api/persons
+content-type: application/json
+
+{"name":"Fulp Gert","number":"09 854 6859"}
+###
+POST https://fso-part3-phonebook-backend-9sef.onrender.com/api/persons
+content-type: application/json
+
+{"name":"Pook Null","number":""}
+###
+POST https://fso-part3-phonebook-backend-9sef.onrender.com/api/persons
+content-type: application/json
+
+{"name":"Fulp Gert","number":"09 854 6859"}
