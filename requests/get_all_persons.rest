@@ -3,14 +3,14 @@ GET http://localhost:3001/api/persons/
 ###
 GET http://localhost:3001/api/info/
 ###
-GET http://localhost:3001/api/persons/10
+GET http://localhost:3001/api/persons/676cae1e40c24cd3d17237bc
 ###
-DELETE http://localhost:3001/api/persons/3
+DELETE http://localhost:3001/api/persons/676d468beb9b150f417704e8
 ###
 POST http://localhost:3001/api/persons
 content-type: application/json
 
-{"name":"Fulp Gert","number":"09 854 6859"}
+{"name":"Dingus McPringus","number":"8999778"}
 ###
 POST http://localhost:3001/api/persons
 content-type: application/json
@@ -21,6 +21,11 @@ POST http://localhost:3001/api/persons
 content-type: application/json
 
 {"name":"Fulp Gert","number":"09 854 6859"}
+###
+PUT http://localhost:3001/api/persons/676e2ca2732307b981fb5736
+content-type: application/json
+
+{"name":"Mr Changey","number":"333 3333"}
 
 
 // RENDER
