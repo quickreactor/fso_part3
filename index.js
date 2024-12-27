@@ -3,7 +3,6 @@ var morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 var Person = require("./models/person");
-const note = require("../part3_notes_backend_repo/models/note");
 const app = express();
 
 morgan.token("body", function (req, res) {
