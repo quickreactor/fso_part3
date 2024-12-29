@@ -23,6 +23,8 @@ const errorHandler = (error, request, response, next) => {
 
     if (error.name === "CastError") {
         return response.status(400).send({ error: "malformatted id" });
+    } else if (error.name === "ValidationError") {
+        return response.status(400).json({ error: error.message });
     }
 
     next(error);
@@ -34,7 +36,6 @@ const unknownEndpoint = (request, response) => {
 
 // ROUTING
 
-
 // GET ALL
 app.get("/api/persons", (request, response) => {
     Person.find({}).then((persons) => {
@@ -44,7 +45,7 @@ app.get("/api/persons", (request, response) => {
 
 // GET 1 by ID
 app.get("/api/persons/:id", (request, response, next) => {
-        Person.findById(request.params.id)
+    Person.findById(request.params.id)
         .then((person) => {
             if (person) {
                 response.json(person);
@@ -57,13 +58,13 @@ app.get("/api/persons/:id", (request, response, next) => {
 
 // PUT - CHANGE INFO BY ID
 app.put("/api/persons/:id", (req, res, next) => {
-        const {name,number} = req.body;
-        const person = {
-            name,
-            number,
-        }
+    const { name, number } = req.body;
+    const person = {
+        name,
+        number,
+    };
 
-        Person.findByIdAndUpdate(req.params.id, person, {new: true})
+    Person.findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true, context: 'query' })
         .then((updatedPerson) => {
             if (updatedPerson) {
                 res.json(updatedPerson);
@@ -83,9 +84,8 @@ app.delete("/api/persons/:id", (request, response, next) => {
         .catch((err) => next(err));
 });
 
-
 // CREATE NEW ENTRY IN PHONEBOOK
-app.post("/api/persons", (req, res) => {
+app.post("/api/persons", (req, res, next) => {
     const { name, number } = req.body;
 
     if (!name || !number) {
@@ -99,20 +99,23 @@ app.post("/api/persons", (req, res) => {
         number,
     });
 
-    person.save().then((savedPerson) => {
-        res.json(savedPerson);
-    });
+    person
+        .save()
+        .then((savedPerson) => {
+            res.json(savedPerson);
+        })
+        .catch((error) => next(error));
 });
 
 // GET INFO HOW MANY IN PHONEBOOK
 app.get("/api/info", (request, response) => {
     const date = new Date();
-    Person.find({}).then(persons => {
+    Person.find({}).then((persons) => {
         response.send(`
             <p>Phonebook has info for ${persons.length} people</p>
             <p>${date}</p>
             `);
-    })
+    });
 });
 
 // app.post("/api/persons", (req, res) => {
@@ -137,7 +140,6 @@ app.get("/api/info", (request, response) => {
 //     persons = persons.concat(newPerson);
 //     res.json(newPerson);
 // });
-
 
 app.use(unknownEndpoint);
 app.use(errorHandler);
