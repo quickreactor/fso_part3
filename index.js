@@ -39,6 +39,7 @@ const unknownEndpoint = (request, response) => {
 // GET ALL
 app.get("/api/persons", (request, response) => {
     Person.find({}).then((persons) => {
+        console.log(persons)
         return response.json(persons);
     });
 });
